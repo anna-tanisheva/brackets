@@ -3,7 +3,7 @@ module.exports = function check(str, bracketsConfig) {
   const stack = [];
   let arrOfSame = [];
   let arrOfSame2 = [];
-  //check for the same brackets
+  //check for the same brackets in the input string and make them not the same.
   strToArr.forEach((elem, index) => {
     bracketsConfig.forEach((configElem) => {
       if (configElem.indexOf(elem) !== -1 && configElem[0] === configElem[1]) {
@@ -25,7 +25,7 @@ module.exports = function check(str, bracketsConfig) {
       }
     })
   })
-  //make objects of brackets and closing brackets
+  //make objects of brackets and closing brackets. For the same brackets - make them not the same as well: add "o" and "c" letters respectively.
   const open = {};
   const closed = {};
   bracketsConfig.forEach(element => {
@@ -37,8 +37,8 @@ module.exports = function check(str, bracketsConfig) {
       closed[element[1]] = true;
     }
   });
-  //solution with stack;
-  for (let i = 0; i < str.length; i++) {
+  //solution with stack: we iterate through the array (from input string). If the bracket is open bracket we push it to the stack. Otherwise (close bracket) we pop the last from the stack and check if its value from the 'open' object matches to the current close bracket. If not - the answer is the sequence is not correct. Otherwise we proceed while the loop is over. In this case the length of stack is 0 so we return the result of comparing length and 0.
+  for (let i = 0; i < strToArr.length; i++) {
     let char = strToArr[i];
     if (open[char]) {
       stack.push(char);
